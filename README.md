@@ -29,6 +29,9 @@ To start the application, please type the following command in the terminal:
 ```
 npm start
 ```
+### Walkthrough video
+
+[Social-Network-API.webm](https://user-images.githubusercontent.com/97859682/215903812-50d110be-4569-4de1-bb73-5e89c1710432.webm)
 
 ## Credits
 
