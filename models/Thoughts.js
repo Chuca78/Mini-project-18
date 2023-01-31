@@ -2,6 +2,41 @@
 const { Schema, model, Types } = require("mongoose");
 const moment = require("moment");
 
+// reactions (These are like replies)
+// Reaction (SCHEMA ONLY)
+const ReactionsSchema = new Schema(
+  {
+    // Use Mongoose's ObjectId data type
+    // Default value is set to a new ObjectId
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    // Set default value to the current timestamp
+    // Use a getter method to format the timestamp on query
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) =>
+        moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
+
 // ThoughtsSchema
 const ThoughtsSchema = new Schema(
   {
@@ -34,42 +69,6 @@ const ThoughtsSchema = new Schema(
       getters: true,
     },
     id: false,
-  }
-);
-
-// reactions (These are like replies)
-// Reaction (SCHEMA ONLY)
-const ReactionsSchema = new Schema(
-  {
-    // Use Mongoose's ObjectId data type
-    // Default value is set to a new ObjectId
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
-    reactionBody: {
-      type: String,
-      required: true,
-      maxlength: 280,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    // Set default value to the current timestamp
-    // Use a getter method to format the timestamp on query
-    createdAt: {
-      type: Date,
-      default: Date,
-      now,
-      get: (createdAtVal) =>
-        moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
-    },
-  },
-  {
-    toJSON: {
-      getters: true,
-    },
   }
 );
 
