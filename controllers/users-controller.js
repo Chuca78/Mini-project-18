@@ -54,16 +54,20 @@ module.exports = {
 
   // * `PUT` to update a user by its `_id`
   updateUsers({ params, body }, res) {
-    Users.findOneAndUpdate({ _id: params.id }, body, {
-      new: true,
-      runValidators: true,
-    })
+    Users.findOneAndUpdate(
+      { _id: params.id },
+      { $set: body },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
       .then((dbUsersData) => {
         if (!dbUsersData) {
           res.status(404).json({ message: "No User with this particular ID!" });
           return;
         }
-        res.json(dbUserData);
+        res.json(dbUsersData);
       })
       .catch((err) => res.json(err));
   },
